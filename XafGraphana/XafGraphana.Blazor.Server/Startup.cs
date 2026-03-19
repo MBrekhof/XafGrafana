@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Prometheus;
 using XafGraphana.Blazor.Server.Services;
 using XafGraphana.WebApi.JWT;
 
@@ -35,6 +36,8 @@ namespace XafGraphana.Blazor.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(typeof(Microsoft.AspNetCore.SignalR.HubConnectionHandler<>), typeof(ProxyHubConnectionHandler<>));
+
+            services.AddHealthChecks();
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
@@ -228,6 +231,7 @@ namespace XafGraphana.Blazor.Server
             app.UseRequestLocalization();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseHttpMetrics();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseAntiforgery();
@@ -237,6 +241,8 @@ namespace XafGraphana.Blazor.Server
                 endpoints.MapXafEndpoints();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapMetrics();
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapControllers();
             });
         }
