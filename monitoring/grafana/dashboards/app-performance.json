@@ -1,4 +1,5 @@
 {
+  "uid": "xaf-app-performance",
   "title": "Application Performance",
   "schemaVersion": 39,
   "refresh": "15s",
@@ -6,159 +7,82 @@
     "from": "now-1h",
     "to": "now"
   },
-  "timepicker": {},
   "panels": [
     {
       "id": 1,
-      "title": "HTTP Request Duration",
-      "type": "heatmap",
-      "gridPos": { "x": 0, "y": 0, "w": 24, "h": 8 },
-      "datasource": { "type": "prometheus",  },
-      "options": {
-        "yAxis": {
-          "unit": "s"
-        }
+      "type": "timeseries",
+      "title": "Requests/sec",
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps"
+        },
+        "overrides": []
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus",  },
-          "expr": "sum(increase(http_request_duration_seconds_bucket[1m])) by (le)",
-          "format": "heatmap",
-          "legendFormat": "{{le}}",
+          "datasource": { "type": "prometheus" },
+          "expr": "sum(rate(http_request_duration_seconds_count[5m]))",
           "refId": "A"
         }
       ]
     },
     {
       "id": 2,
-      "title": "Requests/sec",
       "type": "timeseries",
-      "gridPos": { "x": 0, "y": 8, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus",  },
+      "title": "Memory (Working Set)",
+      "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 },
       "fieldConfig": {
         "defaults": {
-          "unit": "reqps"
-        }
+          "unit": "bytes"
+        },
+        "overrides": []
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus",  },
-          "expr": "sum(rate(http_request_duration_seconds_count[5m]))",
-          "legendFormat": "Requests/sec",
+          "datasource": { "type": "prometheus" },
+          "expr": "process_working_set_bytes",
           "refId": "A"
         }
       ]
     },
     {
       "id": 3,
-      "title": "CPU Usage",
       "type": "timeseries",
-      "gridPos": { "x": 12, "y": 8, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus",  },
+      "title": "CPU Usage",
+      "gridPos": { "x": 0, "y": 8, "w": 12, "h": 8 },
       "fieldConfig": {
         "defaults": {
           "unit": "percent"
-        }
+        },
+        "overrides": []
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus",  },
+          "datasource": { "type": "prometheus" },
           "expr": "rate(process_cpu_seconds_total[5m]) * 100",
-          "legendFormat": "CPU Usage",
           "refId": "A"
         }
       ]
     },
     {
       "id": 4,
-      "title": "Memory (Working Set)",
       "type": "timeseries",
-      "gridPos": { "x": 0, "y": 16, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus",  },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "bytes"
-        }
-      },
-      "targets": [
-        {
-          "datasource": { "type": "prometheus",  },
-          "expr": "process_working_set_bytes",
-          "legendFormat": "Working Set",
-          "refId": "A"
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "title": "Thread Pool",
-      "type": "timeseries",
-      "gridPos": { "x": 12, "y": 16, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus",  },
-      "fieldConfig": {
-        "defaults": {}
-      },
-      "targets": [
-        {
-          "datasource": { "type": "prometheus",  },
-          "expr": "dotnet_threadpool_num_threads",
-          "legendFormat": "Threads",
-          "refId": "A"
-        },
-        {
-          "datasource": { "type": "prometheus",  },
-          "expr": "dotnet_threadpool_queue_length",
-          "legendFormat": "Queue Length",
-          "refId": "B"
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "title": "EF Core Query Duration (avg)",
-      "type": "timeseries",
-      "gridPos": { "x": 0, "y": 24, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus",  },
+      "title": "EF Core Avg Query Duration",
+      "gridPos": { "x": 12, "y": 8, "w": 12, "h": 8 },
       "fieldConfig": {
         "defaults": {
           "unit": "s"
-        }
+        },
+        "overrides": []
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus",  },
+          "datasource": { "type": "prometheus" },
           "expr": "rate(ef_query_duration_seconds_sum[5m]) / rate(ef_query_duration_seconds_count[5m])",
-          "legendFormat": "Avg Query Duration",
-          "refId": "A"
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "title": "EF Core Query Rate",
-      "type": "timeseries",
-      "gridPos": { "x": 12, "y": 24, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus",  },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "qps"
-        }
-      },
-      "targets": [
-        {
-          "datasource": { "type": "prometheus",  },
-          "expr": "rate(ef_query_duration_seconds_count[5m])",
-          "legendFormat": "Query Rate",
           "refId": "A"
         }
       ]
     }
-  ],
-  "uid": "xaf-app-performance",
-  "version": 1,
-  "tags": []
+  ]
 }
-
-
-
-
