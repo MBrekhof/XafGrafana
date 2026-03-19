@@ -23,6 +23,8 @@ namespace XafGraphana.Module.BusinessObjects
         public DbSet<FileData> FileData { get; set; }
         public DbSet<DashboardData> DashboardData { get; set; }
         public DbSet<HCategory> HCategories { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
