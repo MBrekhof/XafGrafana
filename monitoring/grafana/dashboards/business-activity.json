@@ -428,7 +428,7 @@
   "timepicker": {},
   "timezone": "browser",
   "title": "Business Activity",
-  "uid": "business-activity",
+  "uid": "xaf-business-activity",
   "version": 1,
   "weekStart": ""
 }

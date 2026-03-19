@@ -1,6 +1,6 @@
 {
   "title": "SQL Server Health",
-  "uid": "sql-server-health",
+  "uid": "xaf-sql-server",
   "schemaVersion": 39,
   "version": 1,
   "refresh": "15s",

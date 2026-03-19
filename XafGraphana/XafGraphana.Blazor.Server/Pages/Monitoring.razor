@@ -1,0 +1,103 @@
+@page "/monitoring"
+@using DevExpress.ExpressApp.Blazor.Components
+
+<div class="monitoring-page">
+    <div class="monitoring-tabs">
+        <button class="tab-button @(activeTab == "gat" ? "active" : "")" @onclick='() => SetTab("gat")'>
+            GAT Overview
+        </button>
+        <button class="tab-button @(activeTab == "performance" ? "active" : "")" @onclick='() => SetTab("performance")'>
+            Application Performance
+        </button>
+        <button class="tab-button @(activeTab == "business" ? "active" : "")" @onclick='() => SetTab("business")'>
+            Business Activity
+        </button>
+        <button class="tab-button @(activeTab == "sql" ? "active" : "")" @onclick='() => SetTab("sql")'>
+            SQL Server Health
+        </button>
+    </div>
+
+    <div class="dashboard-container">
+        <iframe src="@GetDashboardUrl()"
+                class="grafana-iframe"
+                title="Grafana Dashboard - @activeTab"
+                frameborder="0">
+        </iframe>
+    </div>
+</div>
+
+@code {
+    private string activeTab = "gat";
+    private string grafanaBaseUrl = "http://localhost:3001";
+
+    private readonly Dictionary<string, string> dashboardUids = new()
+    {
+        ["gat"] = "xaf-gat-overview",
+        ["performance"] = "xaf-app-performance",
+        ["business"] = "xaf-business-activity",
+        ["sql"] = "xaf-sql-server"
+    };
+
+    private void SetTab(string tab)
+    {
+        activeTab = tab;
+    }
+
+    private string GetDashboardUrl()
+    {
+        var uid = dashboardUids[activeTab];
+        return $"{grafanaBaseUrl}/d/{uid}?kiosk&theme=dark&refresh=15s";
+    }
+}
+
+<style>
+    .monitoring-page {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 60px);
+        padding: 0;
+    }
+
+    .monitoring-tabs {
+        display: flex;
+        gap: 0;
+        padding: 8px 16px 0;
+        background: var(--dxbs-editor-bg, #f8f9fa);
+        border-bottom: 1px solid var(--dxbs-grid-border-color, #dee2e6);
+    }
+
+    .tab-button {
+        padding: 10px 20px;
+        border: 1px solid transparent;
+        border-bottom: none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--dxbs-text-body, #666);
+        border-radius: 6px 6px 0 0;
+        transition: all 0.15s ease;
+    }
+
+    .tab-button:hover {
+        background: rgba(0, 0, 0, 0.04);
+    }
+
+    .tab-button.active {
+        background: var(--dxbs-bg, #fff);
+        color: var(--dxbs-primary, #0d6efd);
+        border-color: var(--dxbs-grid-border-color, #dee2e6);
+        font-weight: 500;
+    }
+
+    .dashboard-container {
+        flex: 1;
+        padding: 0;
+    }
+
+    .grafana-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        min-height: 600px;
+    }
+</style>
