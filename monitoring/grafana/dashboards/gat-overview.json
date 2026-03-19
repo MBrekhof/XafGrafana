@@ -60,13 +60,13 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
           "legendFormat": "P95",
@@ -128,13 +128,13 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "sum(rate(xaf_errors_total[5m])) * 60",
           "legendFormat": "Errors/min",
@@ -197,13 +197,13 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "xaf_active_sessions",
           "legendFormat": "Sessions",
@@ -257,13 +257,13 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
           "legendFormat": "P50",
@@ -272,7 +272,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
           "legendFormat": "P95",
@@ -281,7 +281,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
           "legendFormat": "P99",
@@ -339,13 +339,13 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "process_working_set_bytes",
           "legendFormat": "Working Set",
@@ -354,7 +354,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "process_resident_memory_bytes",
           "legendFormat": "GC Heap",
@@ -412,13 +412,13 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "sum(rate(xaf_errors_total[5m])) by (type) * 60",
           "legendFormat": "{{type}}",
@@ -477,13 +477,13 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "rate(dotnet_collection_count_total[5m])",
           "legendFormat": "Gen {{generation}}",
@@ -541,13 +541,13 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "sum(rate(http_request_duration_seconds_count[5m]))",
           "legendFormat": "Requests/sec",
@@ -615,3 +615,6 @@
   "version": 1,
   "weekStart": ""
 }
+
+
+

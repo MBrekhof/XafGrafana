@@ -19,7 +19,7 @@
       "type": "stat",
       "title": "Active Connections",
       "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "options": {
         "reduceOptions": {
           "calcs": ["lastNotNull"],
@@ -47,7 +47,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "mssql_connections",
           "refId": "A",
           "instant": true,
@@ -60,7 +60,7 @@
       "type": "stat",
       "title": "Buffer Cache Hit Ratio",
       "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "options": {
         "reduceOptions": {
           "calcs": ["lastNotNull"],
@@ -90,7 +90,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "mssql_buffer_cache_hit_ratio",
           "refId": "A",
           "instant": true,
@@ -103,7 +103,7 @@
       "type": "stat",
       "title": "Deadlocks",
       "gridPos": { "x": 12, "y": 0, "w": 6, "h": 4 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "options": {
         "reduceOptions": {
           "calcs": ["lastNotNull"],
@@ -132,7 +132,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "mssql_deadlocks_total",
           "refId": "A",
           "instant": true,
@@ -145,7 +145,7 @@
       "type": "stat",
       "title": "Active Sessions",
       "gridPos": { "x": 18, "y": 0, "w": 6, "h": 4 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "options": {
         "reduceOptions": {
           "calcs": ["lastNotNull"],
@@ -173,7 +173,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "mssql_sessions_active",
           "refId": "A",
           "instant": true,
@@ -186,7 +186,7 @@
       "type": "timeseries",
       "title": "Batch Requests/sec",
       "gridPos": { "x": 0, "y": 4, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "options": {
         "tooltip": { "mode": "single", "sort": "none" },
         "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true }
@@ -224,7 +224,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "rate(mssql_batch_requests_total[5m])",
           "refId": "A",
           "legendFormat": "Batch Requests/sec"
@@ -236,7 +236,7 @@
       "type": "timeseries",
       "title": "Lock Wait Time",
       "gridPos": { "x": 12, "y": 4, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "options": {
         "tooltip": { "mode": "single", "sort": "none" },
         "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true }
@@ -274,7 +274,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "rate(mssql_lock_wait_time_ms[5m])",
           "refId": "A",
           "legendFormat": "Lock Wait Time"
@@ -286,7 +286,7 @@
       "type": "timeseries",
       "title": "IO Wait Time",
       "gridPos": { "x": 0, "y": 12, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "options": {
         "tooltip": { "mode": "single", "sort": "none" },
         "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true }
@@ -324,7 +324,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "rate(mssql_io_wait_time_ms[5m])",
           "refId": "A",
           "legendFormat": "IO Wait Time"
@@ -336,7 +336,7 @@
       "type": "bargauge",
       "title": "Database Size",
       "gridPos": { "x": 12, "y": 12, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "options": {
         "reduceOptions": {
           "calcs": ["lastNotNull"],
@@ -370,7 +370,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "mssql_database_size_bytes",
           "refId": "A",
           "instant": true,
@@ -386,3 +386,7 @@
   "liveNow": false,
   "weekStart": ""
 }
+
+
+
+

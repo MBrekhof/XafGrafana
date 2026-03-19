@@ -14,7 +14,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        
       },
       "fieldConfig": {
         "defaults": {
@@ -83,7 +83,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "sum(rate(xaf_object_crud_total[5m])) by (entity, operation) * 60",
           "legendFormat": "{{entity}} - {{operation}}",
@@ -96,7 +96,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        
       },
       "fieldConfig": {
         "defaults": {
@@ -142,7 +142,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "xaf_object_crud_total{entity=\"Customer\",operation=\"Create\"}",
           "legendFormat": "Total Customer Creates",
@@ -155,7 +155,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        
       },
       "fieldConfig": {
         "defaults": {
@@ -201,7 +201,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "xaf_object_crud_total{entity=\"Order\",operation=\"Create\"}",
           "legendFormat": "Total Order Creates",
@@ -214,7 +214,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        
       },
       "fieldConfig": {
         "defaults": {
@@ -258,7 +258,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "sum(rate(xaf_object_crud_total[5m])) by (operation) * 60",
           "legendFormat": "{{operation}}",
@@ -271,7 +271,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        
       },
       "fieldConfig": {
         "defaults": {
@@ -340,7 +340,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "sum(rate(xaf_login_total[5m])) by (result) * 60",
           "legendFormat": "{{result}}",
@@ -353,7 +353,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        
       },
       "fieldConfig": {
         "defaults": {
@@ -400,7 +400,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            
           },
           "expr": "sum(rate(xaf_object_crud_total[5m])) by (entity) * 60",
           "legendFormat": "{{entity}}",
@@ -432,3 +432,7 @@
   "version": 1,
   "weekStart": ""
 }
+
+
+
+

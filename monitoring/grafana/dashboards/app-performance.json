@@ -13,7 +13,7 @@
       "title": "HTTP Request Duration",
       "type": "heatmap",
       "gridPos": { "x": 0, "y": 0, "w": 24, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "options": {
         "yAxis": {
           "unit": "s"
@@ -21,7 +21,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "sum(increase(http_request_duration_seconds_bucket[1m])) by (le)",
           "format": "heatmap",
           "legendFormat": "{{le}}",
@@ -34,7 +34,7 @@
       "title": "Requests/sec",
       "type": "timeseries",
       "gridPos": { "x": 0, "y": 8, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "fieldConfig": {
         "defaults": {
           "unit": "reqps"
@@ -42,7 +42,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "sum(rate(http_request_duration_seconds_count[5m]))",
           "legendFormat": "Requests/sec",
           "refId": "A"
@@ -54,7 +54,7 @@
       "title": "CPU Usage",
       "type": "timeseries",
       "gridPos": { "x": 12, "y": 8, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "fieldConfig": {
         "defaults": {
           "unit": "percent"
@@ -62,7 +62,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "rate(process_cpu_seconds_total[5m]) * 100",
           "legendFormat": "CPU Usage",
           "refId": "A"
@@ -74,7 +74,7 @@
       "title": "Memory (Working Set)",
       "type": "timeseries",
       "gridPos": { "x": 0, "y": 16, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "fieldConfig": {
         "defaults": {
           "unit": "bytes"
@@ -82,7 +82,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "process_working_set_bytes",
           "legendFormat": "Working Set",
           "refId": "A"
@@ -94,19 +94,19 @@
       "title": "Thread Pool",
       "type": "timeseries",
       "gridPos": { "x": 12, "y": 16, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "fieldConfig": {
         "defaults": {}
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "dotnet_threadpool_num_threads",
           "legendFormat": "Threads",
           "refId": "A"
         },
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "dotnet_threadpool_queue_length",
           "legendFormat": "Queue Length",
           "refId": "B"
@@ -118,7 +118,7 @@
       "title": "EF Core Query Duration (avg)",
       "type": "timeseries",
       "gridPos": { "x": 0, "y": 24, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "fieldConfig": {
         "defaults": {
           "unit": "s"
@@ -126,7 +126,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "rate(ef_query_duration_seconds_sum[5m]) / rate(ef_query_duration_seconds_count[5m])",
           "legendFormat": "Avg Query Duration",
           "refId": "A"
@@ -138,7 +138,7 @@
       "title": "EF Core Query Rate",
       "type": "timeseries",
       "gridPos": { "x": 12, "y": 24, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "datasource": { "type": "prometheus",  },
       "fieldConfig": {
         "defaults": {
           "unit": "qps"
@@ -146,7 +146,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "datasource": { "type": "prometheus",  },
           "expr": "rate(ef_query_duration_seconds_count[5m])",
           "legendFormat": "Query Rate",
           "refId": "A"
@@ -158,3 +158,7 @@
   "version": 1,
   "tags": []
 }
+
+
+
+
