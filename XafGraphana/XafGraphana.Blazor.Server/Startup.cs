@@ -45,7 +45,8 @@ namespace XafGraphana.Blazor.Server
             services.AddHttpContextAccessor();
             services.AddScoped<IAuthenticationTokenProvider, JwtTokenProviderService>();
             services.AddScoped<CircuitHandler, CircuitHandlerProxy>();
-            services.AddSingleton<Microsoft.EntityFrameworkCore.Diagnostics.IInterceptor, EfCoreMetricsInterceptor>();
+            // Register EF Core interceptor via static list (XAF manages DbContext creation)
+            XafGraphana.Module.BusinessObjects.XafGraphanaEFCoreDbContext.ExternalInterceptors.Add(new EfCoreMetricsInterceptor());
 
             services.AddXaf(Configuration, builder =>
             {

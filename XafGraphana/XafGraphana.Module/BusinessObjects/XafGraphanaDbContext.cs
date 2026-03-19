@@ -5,14 +5,27 @@ using DevExpress.Persistent.BaseImpl.EF;
 using DevExpress.Persistent.BaseImpl.EF.PermissionPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace XafGraphana.Module.BusinessObjects
 {
     [TypesInfoInitializer(typeof(DbContextTypesInfoInitializer<XafGraphanaEFCoreDbContext>))]
     public class XafGraphanaEFCoreDbContext : DbContext
     {
+        // Static interceptor list — populated by Startup.cs before DbContext is created
+        public static readonly List<IInterceptor> ExternalInterceptors = new();
+
         public XafGraphanaEFCoreDbContext(DbContextOptions<XafGraphanaEFCoreDbContext> options) : base(options)
         {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            if (ExternalInterceptors.Count > 0)
+            {
+                optionsBuilder.AddInterceptors(ExternalInterceptors);
+            }
         }
         //public DbSet<ModuleInfo> ModulesInfo { get; set; }
         public DbSet<ModelDifference> ModelDifferences { get; set; }

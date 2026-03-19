@@ -1,3 +1,4 @@
+#nullable enable
 using System.Data.Common;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 

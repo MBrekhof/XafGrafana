@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.EF;
@@ -15,5 +16,5 @@ public class Customer : BaseObject
 
     public virtual string City { get; set; }
 
-    public virtual IList<Order> Orders { get; set; } = new List<Order>();
+    public virtual IList<Order> Orders { get; set; } = new ObservableCollection<Order>();
 }
