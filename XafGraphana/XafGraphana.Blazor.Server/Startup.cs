@@ -38,6 +38,7 @@ namespace XafGraphana.Blazor.Server
             services.AddSingleton(typeof(Microsoft.AspNetCore.SignalR.HubConnectionHandler<>), typeof(ProxyHubConnectionHandler<>));
 
             services.AddHealthChecks();
+            services.AddHostedService<ActivitySimulatorService>();
 
             services.AddRazorPages();
             services.AddServerSideBlazor();

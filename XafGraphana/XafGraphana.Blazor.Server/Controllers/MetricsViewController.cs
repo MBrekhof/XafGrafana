@@ -25,20 +25,13 @@ public class MetricsViewController : ViewController
         {
             if (obj == null) continue;
             var entityName = obj.GetType().Name;
-            var state = objectSpace.GetObjectState(obj);
 
-            switch (state)
-            {
-                case ObjectState.New:
-                    XafMetrics.ObjectCrudTotal.WithLabels(entityName, "Create").Inc();
-                    break;
-                case ObjectState.Modified:
-                    XafMetrics.ObjectCrudTotal.WithLabels(entityName, "Update").Inc();
-                    break;
-                case ObjectState.Deleted:
-                    XafMetrics.ObjectCrudTotal.WithLabels(entityName, "Delete").Inc();
-                    break;
-            }
+            if (objectSpace.IsNewObject(obj))
+                XafMetrics.ObjectCrudTotal.WithLabels(entityName, "Create").Inc();
+            else if (objectSpace.IsDeletedObject(obj))
+                XafMetrics.ObjectCrudTotal.WithLabels(entityName, "Delete").Inc();
+            else
+                XafMetrics.ObjectCrudTotal.WithLabels(entityName, "Update").Inc();
         }
     }
 }
