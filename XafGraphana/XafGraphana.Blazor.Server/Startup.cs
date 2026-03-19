@@ -44,6 +44,8 @@ namespace XafGraphana.Blazor.Server
             services.AddHttpContextAccessor();
             services.AddScoped<IAuthenticationTokenProvider, JwtTokenProviderService>();
             services.AddScoped<CircuitHandler, CircuitHandlerProxy>();
+            services.AddSingleton<Microsoft.EntityFrameworkCore.Diagnostics.IInterceptor, EfCoreMetricsInterceptor>();
+
             services.AddXaf(Configuration, builder =>
             {
                 builder.UseApplication<XafGraphanaBlazorApplication>();
