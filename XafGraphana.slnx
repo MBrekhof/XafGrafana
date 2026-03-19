@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="EasyTest" />
+    <BuildType Name="Release" />
+  </Configurations>
+  <Project Path="XafGraphana/XafGraphana.Blazor.Server/XafGraphana.Blazor.Server.csproj" />
+  <Project Path="XafGraphana/XafGraphana.Module/XafGraphana.Module.csproj" />
+</Solution>

@@ -1,0 +1,14 @@
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+*.tmp
+[Dd]ebug/
+[Rr]elease/
+*.db
+*.mdf
+*.ldf
+excalidraw.log
