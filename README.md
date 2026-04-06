@@ -1,5 +1,7 @@
 # XafGrafana
 
+![Architecture Overview](docs/architecture-overview.png)
+
 POC: Full-stack observability for a DevExpress XAF Blazor Server application using Prometheus and Grafana.
 
 ## What This Proves

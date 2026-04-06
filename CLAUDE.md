@@ -37,7 +37,8 @@ dotnet test XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj
 - `XafGrafana/XafGrafana.Module/` — EF Core entities, business logic, XAF modules
 - `monitoring/` — Docker configs: `prometheus/`, `grafana/` (dashboards + provisioning), `sql-exporter/`
 - `XafGrafana/XafGrafana.Tests/` — xUnit tests (ObjectSpace CRUD, ViewController, interceptor, service)
-- `docs/` — Implementation guide (`HOW_TO_IMPLEMENT.md`)
+- `HOW_TO_IMPLEMENT.md` — Step-by-step implementation guide (repo root)
+- `docs/` — Architecture diagram, planning docs
 
 ## Key Architecture Decisions
 
@@ -53,6 +54,11 @@ Four services in docker-compose.yml:
 - **sql-exporter** (port 9399) — SQL Server metrics for Prometheus
 - **prometheus** (port 9090) — scrapes app at `host.docker.internal:5000/metrics` every 15s
 - **grafana** (port 3000) — 4 dashboards: GAT Overview, Performance, Business Activity, SQL Server Health
+
+## GitHub
+
+- Remote: `https://github.com/MBrekhof/XafGrafana.git`
+- GitHub CLI account: **MBrekhof** (not MartinWLN). Run `gh auth switch --user MBrekhof` if needed.
 
 ## Gotchas
 
