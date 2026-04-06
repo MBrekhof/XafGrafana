@@ -1,6 +1,7 @@
-using System.ComponentModel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
+using System.ComponentModel;
 using XafGrafana.Blazor.Server.Services;
 
 namespace XafGrafana.Blazor.Server.BusinessObjects;
@@ -10,7 +11,7 @@ namespace XafGrafana.Blazor.Server.BusinessObjects;
 [NavigationItem("Stress Testing")]
 [DefaultProperty(nameof(Status))]
 [ImageName("Action_Debug_Start")]
-public class LoadTestParameters
+public class LoadTestParameters: NonPersistentBaseObject
 {
     [VisibleInListView(false)]
     [VisibleInDetailView(true)]
