@@ -16,32 +16,32 @@ POC for Prometheus/Grafana observability on a DevExpress XAF Blazor Server appli
 
 ```bash
 # Build the solution
-dotnet build XafGraphana/XafGraphana.Blazor.Server/XafGraphana.Blazor.Server.csproj
+dotnet build XafGrafana/XafGrafana.Blazor.Server/XafGrafana.Blazor.Server.csproj
 
 # Run the app (from Blazor.Server project dir)
-dotnet run --project XafGraphana/XafGraphana.Blazor.Server --urls="http://localhost:5000"
+dotnet run --project XafGrafana/XafGrafana.Blazor.Server --urls="http://localhost:5000"
 
 # First-time database setup
-dotnet run --project XafGraphana/XafGraphana.Blazor.Server -- --updateDatabase --forceUpdate --silent
+dotnet run --project XafGrafana/XafGrafana.Blazor.Server -- --updateDatabase --forceUpdate --silent
 
 # Start monitoring stack
 docker compose up -d
 
 # Run tests
-dotnet test XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj
+dotnet test XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj
 ```
 
 ## Project Structure
 
-- `XafGraphana/XafGraphana.Blazor.Server/` — Web app, Startup.cs, metrics services, Razor pages
-- `XafGraphana/XafGraphana.Module/` — EF Core entities, business logic, XAF modules
+- `XafGrafana/XafGrafana.Blazor.Server/` — Web app, Startup.cs, metrics services, Razor pages
+- `XafGrafana/XafGrafana.Module/` — EF Core entities, business logic, XAF modules
 - `monitoring/` — Docker configs: `prometheus/`, `grafana/` (dashboards + provisioning), `sql-exporter/`
-- `XafGraphana/XafGraphana.Tests/` — xUnit tests (ObjectSpace CRUD, ViewController, interceptor, service)
+- `XafGrafana/XafGrafana.Tests/` — xUnit tests (ObjectSpace CRUD, ViewController, interceptor, service)
 - `docs/` — Implementation guide (`HOW_TO_IMPLEMENT.md`)
 
 ## Key Architecture Decisions
 
-- **EF Core metrics interceptor** uses a static list (`XafGraphanaEFCoreDbContext.ExternalInterceptors`) because XAF manages DbContext creation — you cannot use standard DI-based interceptor registration.
+- **EF Core metrics interceptor** uses a static list (`XafGrafanaEFCoreDbContext.ExternalInterceptors`) because XAF manages DbContext creation — you cannot use standard DI-based interceptor registration.
 - **Blazor circuit tracking** uses a `CircuitHandlerProxy` wrapping XAF's `IScopedCircuitHandler` to track active sessions.
 - **ActivitySimulatorService** generates fake CRUD operations for dashboard testing — runs continuously as a BackgroundService.
 - Grafana is configured for anonymous access (`allow_embedding=true`) to support iframe embedding in the XAF app.

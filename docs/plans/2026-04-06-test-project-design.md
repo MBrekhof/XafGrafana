@@ -1,4 +1,4 @@
-# XafGraphana Test Project Design
+# XafGrafana Test Project Design
 
 ## Goal
 
@@ -6,7 +6,7 @@ Add an xUnit test project as a **production template** for XAF EF Core testing. 
 
 ## Approach
 
-Use `EFCoreObjectSpaceProvider<XafGraphanaEFCoreDbContext>` with EF Core InMemory provider for ObjectSpace tests. Use Moq for mocking IObjectSpace and INonSecuredObjectSpaceFactory where XAF infrastructure isn't needed.
+Use `EFCoreObjectSpaceProvider<XafGrafanaEFCoreDbContext>` with EF Core InMemory provider for ObjectSpace tests. Use Moq for mocking IObjectSpace and INonSecuredObjectSpaceFactory where XAF infrastructure isn't needed.
 
 ## Test Categories
 
@@ -38,8 +38,8 @@ Use `EFCoreObjectSpaceProvider<XafGraphanaEFCoreDbContext>` with EF Core InMemor
 ## Project Structure
 
 ```
-XafGraphana/XafGraphana.Tests/
-  XafGraphana.Tests.csproj
+XafGrafana/XafGrafana.Tests/
+  XafGrafana.Tests.csproj
   Infrastructure/
     ObjectSpaceTestBase.cs          -- shared EFCoreObjectSpaceProvider setup
   ObjectSpaceTests/

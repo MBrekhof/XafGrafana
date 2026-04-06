@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
+    <PackageReference Include="xunit" Version="2.*" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.*" />
+    <PackageReference Include="Moq" Version="4.*" />
+    <PackageReference Include="FluentAssertions" Version="7.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.18" />
+    <PackageReference Include="DevExpress.ExpressApp.EFCore" Version="25.2.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XafGrafana.Module\XafGrafana.Module.csproj" />
+    <ProjectReference Include="..\XafGrafana.Blazor.Server\XafGrafana.Blazor.Server.csproj" />
+  </ItemGroup>
+</Project>

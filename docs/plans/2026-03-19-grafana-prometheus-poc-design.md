@@ -159,12 +159,12 @@ monitoring/
 | File | Change |
 |------|--------|
 | `Startup.cs` | Register Prometheus middleware, metrics endpoint, hosted service |
-| `XafGraphanaDbContext.cs` | Add DbSet<Customer>, DbSet<Order>, register interceptor |
+| `XafGrafanaDbContext.cs` | Add DbSet<Customer>, DbSet<Order>, register interceptor |
 | `Module.cs` | Export new types |
 | `appsettings.Development.json` | Connection string → Docker SQL Server |
 
 ## Connection String (Development)
 
 ```
-Server=localhost,1433;Database=XafGraphana;User=sa;Password=<SA_PASSWORD>;TrustServerCertificate=True
+Server=localhost,1433;Database=XafGrafana;User=sa;Password=<SA_PASSWORD>;TrustServerCertificate=True
 ```

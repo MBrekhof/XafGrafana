@@ -1,4 +1,4 @@
-# XafGraphana
+# XafGrafana
 
 POC: Full-stack observability for a DevExpress XAF Blazor Server application using Prometheus and Grafana.
 
@@ -81,7 +81,7 @@ Four dashboards, accessible embedded in the XAF app at `/monitoring` or standalo
 docker compose up -d
 
 # 2. Update database schema
-cd XafGraphana/XafGraphana.Blazor.Server
+cd XafGrafana/XafGrafana.Blazor.Server
 dotnet run -- --updateDatabase --forceUpdate --silent
 
 # 3. Run the app
@@ -101,7 +101,7 @@ dotnet run --urls="http://localhost:5000"
 ## Project Structure
 
 ```
-XafGraphana/
+XafGrafana/
 ├── docker-compose.yml
 ├── monitoring/
 │   ├── prometheus/prometheus.yml
@@ -116,8 +116,8 @@ XafGraphana/
 │           ├── app-performance.json
 │           ├── business-activity.json
 │           └── sql-server.json
-├── XafGraphana/
-│   ├── XafGraphana.Blazor.Server/
+├── XafGrafana/
+│   ├── XafGrafana.Blazor.Server/
 │   │   ├── Startup.cs                    # Prometheus middleware + metrics registration
 │   │   ├── Pages/Monitoring.razor        # Embedded Grafana iframe page
 │   │   ├── Services/
@@ -127,11 +127,11 @@ XafGraphana/
 │   │   │   └── CircuitHandlerProxy.cs    # Active sessions gauge
 │   │   └── Controllers/
 │   │       └── MetricsViewController.cs  # CRUD operation tracking
-│   └── XafGraphana.Module/
+│   └── XafGrafana.Module/
 │       ├── BusinessObjects/
 │       │   ├── Customer.cs
 │       │   ├── Order.cs
-│       │   └── XafGraphanaDbContext.cs
+│       │   └── XafGrafanaDbContext.cs
 │       └── Module.cs
 └── docs/plans/
     ├── 2026-03-19-grafana-prometheus-poc-design.md

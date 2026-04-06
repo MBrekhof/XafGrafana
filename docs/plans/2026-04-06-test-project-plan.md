@@ -1,10 +1,10 @@
-# XafGraphana Test Project Implementation Plan
+# XafGrafana Test Project Implementation Plan
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
 **Goal:** Add an xUnit test project as a production template for XAF EF Core testing with 4 test categories: ObjectSpace CRUD, ViewController, EF Core interceptor, and BackgroundService.
 
-**Architecture:** Use `EFCoreObjectSpaceProvider<XafGraphanaEFCoreDbContext>` with EF Core InMemory provider for tests that need real ObjectSpace instances. Use Moq for tests that mock XAF interfaces (IObjectSpace, INonSecuredObjectSpaceFactory). A shared `ObjectSpaceTestBase` class handles provider setup/teardown.
+**Architecture:** Use `EFCoreObjectSpaceProvider<XafGrafanaEFCoreDbContext>` with EF Core InMemory provider for tests that need real ObjectSpace instances. Use Moq for tests that mock XAF interfaces (IObjectSpace, INonSecuredObjectSpaceFactory). A shared `ObjectSpaceTestBase` class handles provider setup/teardown.
 
 **Tech Stack:** .NET 8, xUnit, Moq, FluentAssertions, DevExpress XAF 25.2.5 EF Core, Microsoft.EntityFrameworkCore.InMemory
 
@@ -13,19 +13,19 @@
 ### Task 1: Create Test Project and Add to Solution
 
 **Files:**
-- Create: `XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj`
-- Modify: `XafGraphana.slnx`
+- Create: `XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj`
+- Modify: `XafGrafana.slnx`
 
 **Step 1: Create the test project**
 
 Run:
 ```bash
-cd /c/Projects/XafGraphana && dotnet new xunit -n XafGraphana.Tests -o XafGraphana/XafGraphana.Tests --framework net8.0
+cd /c/Projects/XafGrafana && dotnet new xunit -n XafGrafana.Tests -o XafGrafana/XafGrafana.Tests --framework net8.0
 ```
 
 **Step 2: Replace the generated csproj with correct dependencies**
 
-Overwrite `XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj` with:
+Overwrite `XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj` with:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -46,8 +46,8 @@ Overwrite `XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj` with:
     <PackageReference Include="DevExpress.ExpressApp.EFCore" Version="25.2.5" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XafGraphana.Module\XafGraphana.Module.csproj" />
-    <ProjectReference Include="..\XafGraphana.Blazor.Server\XafGraphana.Blazor.Server.csproj" />
+    <ProjectReference Include="..\XafGrafana.Module\XafGrafana.Module.csproj" />
+    <ProjectReference Include="..\XafGrafana.Blazor.Server\XafGrafana.Blazor.Server.csproj" />
   </ItemGroup>
 </Project>
 ```
@@ -56,21 +56,21 @@ Overwrite `XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj` with:
 
 Run:
 ```bash
-cd /c/Projects/XafGraphana && dotnet sln XafGraphana.slnx add XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj
+cd /c/Projects/XafGrafana && dotnet sln XafGrafana.slnx add XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj
 ```
 
 **Step 4: Delete the generated UnitTest1.cs**
 
 Run:
 ```bash
-rm XafGraphana/XafGraphana.Tests/UnitTest1.cs
+rm XafGrafana/XafGrafana.Tests/UnitTest1.cs
 ```
 
 **Step 5: Restore and build to verify setup**
 
 Run:
 ```bash
-dotnet build XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj
+dotnet build XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj
 ```
 
 Expected: Build succeeded, 0 errors.
@@ -78,7 +78,7 @@ Expected: Build succeeded, 0 errors.
 **Step 6: Commit**
 
 ```bash
-git add XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj XafGraphana.slnx
+git add XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj XafGrafana.slnx
 git commit -m "feat: add xUnit test project with DevExpress XAF EF Core dependencies"
 ```
 
@@ -87,19 +87,19 @@ git commit -m "feat: add xUnit test project with DevExpress XAF EF Core dependen
 ### Task 2: ObjectSpaceTestBase Infrastructure
 
 **Files:**
-- Create: `XafGraphana/XafGraphana.Tests/Infrastructure/ObjectSpaceTestBase.cs`
+- Create: `XafGrafana/XafGrafana.Tests/Infrastructure/ObjectSpaceTestBase.cs`
 
 **Step 1: Write the base class**
 
-Create `XafGraphana/XafGraphana.Tests/Infrastructure/ObjectSpaceTestBase.cs`:
+Create `XafGrafana/XafGrafana.Tests/Infrastructure/ObjectSpaceTestBase.cs`:
 
 ```csharp
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.EFCore;
 using Microsoft.EntityFrameworkCore;
-using XafGraphana.Module.BusinessObjects;
+using XafGrafana.Module.BusinessObjects;
 
-namespace XafGraphana.Tests.Infrastructure;
+namespace XafGrafana.Tests.Infrastructure;
 
 /// <summary>
 /// Base class for tests that need a real IObjectSpace backed by InMemory EF Core.
@@ -107,12 +107,12 @@ namespace XafGraphana.Tests.Infrastructure;
 /// </summary>
 public abstract class ObjectSpaceTestBase : IDisposable
 {
-    private readonly EFCoreObjectSpaceProvider<XafGraphanaEFCoreDbContext> _provider;
+    private readonly EFCoreObjectSpaceProvider<XafGrafanaEFCoreDbContext> _provider;
 
     protected ObjectSpaceTestBase()
     {
         var dbName = $"TestDb_{Guid.NewGuid():N}";
-        _provider = new EFCoreObjectSpaceProvider<XafGraphanaEFCoreDbContext>(
+        _provider = new EFCoreObjectSpaceProvider<XafGrafanaEFCoreDbContext>(
             (builder, _) =>
             {
                 builder.UseInMemoryDatabase(dbName);
@@ -137,7 +137,7 @@ public abstract class ObjectSpaceTestBase : IDisposable
 
 Run:
 ```bash
-dotnet build XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj
+dotnet build XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj
 ```
 
 Expected: Build succeeded. If `EFCoreObjectSpaceProvider` constructor signature differs, adjust — the key overload is `(Action<DbContextOptionsBuilder, string> optionsBuilder)`.
@@ -145,7 +145,7 @@ Expected: Build succeeded. If `EFCoreObjectSpaceProvider` constructor signature 
 **Step 3: Commit**
 
 ```bash
-git add XafGraphana/XafGraphana.Tests/Infrastructure/ObjectSpaceTestBase.cs
+git add XafGrafana/XafGrafana.Tests/Infrastructure/ObjectSpaceTestBase.cs
 git commit -m "feat: add ObjectSpaceTestBase with InMemory EFCoreObjectSpaceProvider"
 ```
 
@@ -154,19 +154,19 @@ git commit -m "feat: add ObjectSpaceTestBase with InMemory EFCoreObjectSpaceProv
 ### Task 3: Customer ObjectSpace CRUD Tests
 
 **Files:**
-- Create: `XafGraphana/XafGraphana.Tests/ObjectSpaceTests/CustomerObjectSpaceTests.cs`
+- Create: `XafGrafana/XafGrafana.Tests/ObjectSpaceTests/CustomerObjectSpaceTests.cs`
 
 **Step 1: Write the tests**
 
-Create `XafGraphana/XafGraphana.Tests/ObjectSpaceTests/CustomerObjectSpaceTests.cs`:
+Create `XafGrafana/XafGrafana.Tests/ObjectSpaceTests/CustomerObjectSpaceTests.cs`:
 
 ```csharp
 using DevExpress.ExpressApp;
 using FluentAssertions;
-using XafGraphana.Module.BusinessObjects;
-using XafGraphana.Tests.Infrastructure;
+using XafGrafana.Module.BusinessObjects;
+using XafGrafana.Tests.Infrastructure;
 
-namespace XafGraphana.Tests.ObjectSpaceTests;
+namespace XafGrafana.Tests.ObjectSpaceTests;
 
 public class CustomerObjectSpaceTests : ObjectSpaceTestBase
 {
@@ -246,7 +246,7 @@ public class CustomerObjectSpaceTests : ObjectSpaceTestBase
 
 Run:
 ```bash
-dotnet test XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj --filter "FullyQualifiedName~CustomerObjectSpaceTests" -v normal
+dotnet test XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj --filter "FullyQualifiedName~CustomerObjectSpaceTests" -v normal
 ```
 
 Expected: 4 tests pass. If `FindObject<T>(null)` doesn't work (XAF expects `CriteriaOperator`), use `os2.GetObjects<Customer>().FirstOrDefault()` instead.
@@ -254,7 +254,7 @@ Expected: 4 tests pass. If `FindObject<T>(null)` doesn't work (XAF expects `Crit
 **Step 3: Commit**
 
 ```bash
-git add XafGraphana/XafGraphana.Tests/ObjectSpaceTests/CustomerObjectSpaceTests.cs
+git add XafGrafana/XafGrafana.Tests/ObjectSpaceTests/CustomerObjectSpaceTests.cs
 git commit -m "test: add Customer ObjectSpace CRUD tests"
 ```
 
@@ -263,19 +263,19 @@ git commit -m "test: add Customer ObjectSpace CRUD tests"
 ### Task 4: Order ObjectSpace CRUD Tests
 
 **Files:**
-- Create: `XafGraphana/XafGraphana.Tests/ObjectSpaceTests/OrderObjectSpaceTests.cs`
+- Create: `XafGrafana/XafGrafana.Tests/ObjectSpaceTests/OrderObjectSpaceTests.cs`
 
 **Step 1: Write the tests**
 
-Create `XafGraphana/XafGraphana.Tests/ObjectSpaceTests/OrderObjectSpaceTests.cs`:
+Create `XafGrafana/XafGrafana.Tests/ObjectSpaceTests/OrderObjectSpaceTests.cs`:
 
 ```csharp
 using DevExpress.ExpressApp;
 using FluentAssertions;
-using XafGraphana.Module.BusinessObjects;
-using XafGraphana.Tests.Infrastructure;
+using XafGrafana.Module.BusinessObjects;
+using XafGrafana.Tests.Infrastructure;
 
-namespace XafGraphana.Tests.ObjectSpaceTests;
+namespace XafGrafana.Tests.ObjectSpaceTests;
 
 public class OrderObjectSpaceTests : ObjectSpaceTestBase
 {
@@ -359,7 +359,7 @@ public class OrderObjectSpaceTests : ObjectSpaceTestBase
 
 Run:
 ```bash
-dotnet test XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj --filter "FullyQualifiedName~OrderObjectSpaceTests" -v normal
+dotnet test XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj --filter "FullyQualifiedName~OrderObjectSpaceTests" -v normal
 ```
 
 Expected: 3 tests pass.
@@ -367,7 +367,7 @@ Expected: 3 tests pass.
 **Step 3: Commit**
 
 ```bash
-git add XafGraphana/XafGraphana.Tests/ObjectSpaceTests/OrderObjectSpaceTests.cs
+git add XafGrafana/XafGrafana.Tests/ObjectSpaceTests/OrderObjectSpaceTests.cs
 git commit -m "test: add Order ObjectSpace CRUD and relationship tests"
 ```
 
@@ -376,13 +376,13 @@ git commit -m "test: add Order ObjectSpace CRUD and relationship tests"
 ### Task 5: MetricsViewController Tests
 
 **Files:**
-- Create: `XafGraphana/XafGraphana.Tests/ControllerTests/MetricsViewControllerTests.cs`
+- Create: `XafGrafana/XafGrafana.Tests/ControllerTests/MetricsViewControllerTests.cs`
 
-**Context:** `MetricsViewController` (at `XafGraphana.Blazor.Server/Controllers/MetricsViewController.cs`) subscribes to `ObjectSpace.Committing` and inspects `ModifiedObjects` to increment Prometheus counters. Testing pattern: mock IObjectSpace, fire the Committing event, verify counter behavior.
+**Context:** `MetricsViewController` (at `XafGrafana.Blazor.Server/Controllers/MetricsViewController.cs`) subscribes to `ObjectSpace.Committing` and inspects `ModifiedObjects` to increment Prometheus counters. Testing pattern: mock IObjectSpace, fire the Committing event, verify counter behavior.
 
 **Step 1: Write the tests**
 
-Create `XafGraphana/XafGraphana.Tests/ControllerTests/MetricsViewControllerTests.cs`:
+Create `XafGrafana/XafGrafana.Tests/ControllerTests/MetricsViewControllerTests.cs`:
 
 ```csharp
 using System.ComponentModel;
@@ -390,11 +390,11 @@ using DevExpress.ExpressApp;
 using FluentAssertions;
 using Moq;
 using Prometheus;
-using XafGraphana.Blazor.Server.Controllers;
-using XafGraphana.Blazor.Server.Services;
-using XafGraphana.Module.BusinessObjects;
+using XafGrafana.Blazor.Server.Controllers;
+using XafGrafana.Blazor.Server.Services;
+using XafGrafana.Module.BusinessObjects;
 
-namespace XafGraphana.Tests.ControllerTests;
+namespace XafGrafana.Tests.ControllerTests;
 
 public class MetricsViewControllerTests
 {
@@ -491,7 +491,7 @@ public class MetricsViewControllerTests
 
 Run:
 ```bash
-dotnet test XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj --filter "FullyQualifiedName~MetricsViewControllerTests" -v normal
+dotnet test XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj --filter "FullyQualifiedName~MetricsViewControllerTests" -v normal
 ```
 
 Expected: 3 tests pass. Note: Prometheus counters are global static state, so tests observe increments rather than absolute values. If `counter.Value` is not accessible, use the `Prometheus.CollectorRegistry` to read values — adjust as needed.
@@ -499,7 +499,7 @@ Expected: 3 tests pass. Note: Prometheus counters are global static state, so te
 **Step 3: Commit**
 
 ```bash
-git add XafGraphana/XafGraphana.Tests/ControllerTests/MetricsViewControllerTests.cs
+git add XafGrafana/XafGrafana.Tests/ControllerTests/MetricsViewControllerTests.cs
 git commit -m "test: add MetricsViewController tests with mocked ObjectSpace"
 ```
 
@@ -508,13 +508,13 @@ git commit -m "test: add MetricsViewController tests with mocked ObjectSpace"
 ### Task 6: EfCoreMetricsInterceptor Tests
 
 **Files:**
-- Create: `XafGraphana/XafGraphana.Tests/ServiceTests/EfCoreMetricsInterceptorTests.cs`
+- Create: `XafGrafana/XafGrafana.Tests/ServiceTests/EfCoreMetricsInterceptorTests.cs`
 
-**Context:** `EfCoreMetricsInterceptor` (at `XafGraphana.Blazor.Server/Services/EfCoreMetricsInterceptor.cs`) calls `XafMetrics.EfQueryDuration.Observe(duration.TotalSeconds)` after every EF Core command. We test it by passing mock `CommandExecutedEventData` with a known duration and checking the histogram value changes.
+**Context:** `EfCoreMetricsInterceptor` (at `XafGrafana.Blazor.Server/Services/EfCoreMetricsInterceptor.cs`) calls `XafMetrics.EfQueryDuration.Observe(duration.TotalSeconds)` after every EF Core command. We test it by passing mock `CommandExecutedEventData` with a known duration and checking the histogram value changes.
 
 **Step 1: Write the tests**
 
-Create `XafGraphana/XafGraphana.Tests/ServiceTests/EfCoreMetricsInterceptorTests.cs`:
+Create `XafGrafana/XafGrafana.Tests/ServiceTests/EfCoreMetricsInterceptorTests.cs`:
 
 ```csharp
 using System.Data.Common;
@@ -522,9 +522,9 @@ using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Moq;
-using XafGraphana.Blazor.Server.Services;
+using XafGrafana.Blazor.Server.Services;
 
-namespace XafGraphana.Tests.ServiceTests;
+namespace XafGrafana.Tests.ServiceTests;
 
 public class EfCoreMetricsInterceptorTests
 {
@@ -646,7 +646,7 @@ public void RecordDuration_ObservesHistogramValue()
 
 Run:
 ```bash
-dotnet test XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj --filter "FullyQualifiedName~EfCoreMetricsInterceptorTests" -v normal
+dotnet test XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj --filter "FullyQualifiedName~EfCoreMetricsInterceptorTests" -v normal
 ```
 
 Expected: 3 tests pass. If `CommandExecutedEventData` construction fails, switch to the reflection fallback and have 1 test.
@@ -654,7 +654,7 @@ Expected: 3 tests pass. If `CommandExecutedEventData` construction fails, switch
 **Step 3: Commit**
 
 ```bash
-git add XafGraphana/XafGraphana.Tests/ServiceTests/EfCoreMetricsInterceptorTests.cs
+git add XafGrafana/XafGrafana.Tests/ServiceTests/EfCoreMetricsInterceptorTests.cs
 git commit -m "test: add EfCoreMetricsInterceptor duration recording tests"
 ```
 
@@ -663,13 +663,13 @@ git commit -m "test: add EfCoreMetricsInterceptor duration recording tests"
 ### Task 7: ActivitySimulatorService Tests
 
 **Files:**
-- Create: `XafGraphana/XafGraphana.Tests/ServiceTests/ActivitySimulatorServiceTests.cs`
+- Create: `XafGrafana/XafGrafana.Tests/ServiceTests/ActivitySimulatorServiceTests.cs`
 
-**Context:** `ActivitySimulatorService` (at `XafGraphana.Blazor.Server/Services/ActivitySimulatorService.cs`) uses `IServiceProvider` to resolve `INonSecuredObjectSpaceFactory`, creates ObjectSpaces, and performs CRUD operations. We mock the DI chain and verify correct ObjectSpace operations.
+**Context:** `ActivitySimulatorService` (at `XafGrafana.Blazor.Server/Services/ActivitySimulatorService.cs`) uses `IServiceProvider` to resolve `INonSecuredObjectSpaceFactory`, creates ObjectSpaces, and performs CRUD operations. We mock the DI chain and verify correct ObjectSpace operations.
 
 **Step 1: Write the tests**
 
-Create `XafGraphana/XafGraphana.Tests/ServiceTests/ActivitySimulatorServiceTests.cs`:
+Create `XafGrafana/XafGrafana.Tests/ServiceTests/ActivitySimulatorServiceTests.cs`:
 
 ```csharp
 using DevExpress.ExpressApp;
@@ -678,10 +678,10 @@ using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
-using XafGraphana.Blazor.Server.Services;
-using XafGraphana.Module.BusinessObjects;
+using XafGrafana.Blazor.Server.Services;
+using XafGrafana.Module.BusinessObjects;
 
-namespace XafGraphana.Tests.ServiceTests;
+namespace XafGrafana.Tests.ServiceTests;
 
 public class ActivitySimulatorServiceTests
 {
@@ -731,7 +731,7 @@ public class ActivitySimulatorServiceTests
 
 Run:
 ```bash
-dotnet test XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj --filter "FullyQualifiedName~ActivitySimulatorServiceTests" -v normal
+dotnet test XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj --filter "FullyQualifiedName~ActivitySimulatorServiceTests" -v normal
 ```
 
 Expected: 2 tests pass.
@@ -739,7 +739,7 @@ Expected: 2 tests pass.
 **Step 3: Commit**
 
 ```bash
-git add XafGraphana/XafGraphana.Tests/ServiceTests/ActivitySimulatorServiceTests.cs
+git add XafGrafana/XafGrafana.Tests/ServiceTests/ActivitySimulatorServiceTests.cs
 git commit -m "test: add ActivitySimulatorService construction and DI mock tests"
 ```
 
@@ -751,7 +751,7 @@ git commit -m "test: add ActivitySimulatorService construction and DI mock tests
 
 Run:
 ```bash
-dotnet test XafGraphana/XafGraphana.Tests/XafGraphana.Tests.csproj -v normal
+dotnet test XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj -v normal
 ```
 
 Expected: All tests pass (12+ tests across 4 categories).
@@ -760,7 +760,7 @@ Expected: All tests pass (12+ tests across 4 categories).
 
 Run:
 ```bash
-dotnet build XafGraphana/XafGraphana.Blazor.Server/XafGraphana.Blazor.Server.csproj
+dotnet build XafGrafana/XafGrafana.Blazor.Server/XafGrafana.Blazor.Server.csproj
 ```
 
 Expected: Build succeeded.

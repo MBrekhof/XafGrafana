@@ -13,7 +13,7 @@
 ### Task 1: Docker Compose — SQL Server
 
 **Files:**
-- Create: `docker-compose.yml` (project root: `C:\Projects\XafGraphana`)
+- Create: `docker-compose.yml` (project root: `C:\Projects\XafGrafana`)
 
 **Step 1: Create docker-compose.yml with SQL Server service**
 
@@ -48,14 +48,14 @@ Expected: sqlserver shows "healthy"
 
 **Step 3: Update connection string in appsettings.Development.json**
 
-Modify: `XafGraphana/XafGraphana.Blazor.Server/appsettings.Development.json`
+Modify: `XafGrafana/XafGrafana.Blazor.Server/appsettings.Development.json`
 
 Add ConnectionStrings section that overrides the LocalDB default:
 
 ```json
 {
   "ConnectionStrings": {
-    "ConnectionString": "Server=localhost,1433;Database=XafGraphana;User Id=sa;Password=YourStr0ng!Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True"
+    "ConnectionString": "Server=localhost,1433;Database=XafGrafana;User Id=sa;Password=YourStr0ng!Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True"
   },
   "DetailedErrors": true,
   "Logging": {
@@ -70,14 +70,14 @@ Add ConnectionStrings section that overrides the LocalDB default:
 
 **Step 4: Verify XAF app starts against Docker SQL Server**
 
-Run: `cd XafGraphana/XafGraphana.Blazor.Server && dotnet run`
+Run: `cd XafGrafana/XafGrafana.Blazor.Server && dotnet run`
 Expected: App starts, creates database, no connection errors in output.
 Stop the app after verifying.
 
 **Step 5: Commit**
 
 ```bash
-git add docker-compose.yml XafGraphana/XafGraphana.Blazor.Server/appsettings.Development.json
+git add docker-compose.yml XafGrafana/XafGrafana.Blazor.Server/appsettings.Development.json
 git commit -m "feat: add Docker SQL Server and update dev connection string"
 ```
 
@@ -86,21 +86,21 @@ git commit -m "feat: add Docker SQL Server and update dev connection string"
 ### Task 2: Business Objects — Customer and Order
 
 **Files:**
-- Create: `XafGraphana/XafGraphana.Module/BusinessObjects/Customer.cs`
-- Create: `XafGraphana/XafGraphana.Module/BusinessObjects/Order.cs`
-- Modify: `XafGraphana/XafGraphana.Module/BusinessObjects/XafGraphanaDbContext.cs:17-25`
-- Modify: `XafGraphana/XafGraphana.Module/Module.cs:23-38`
+- Create: `XafGrafana/XafGrafana.Module/BusinessObjects/Customer.cs`
+- Create: `XafGrafana/XafGrafana.Module/BusinessObjects/Order.cs`
+- Modify: `XafGrafana/XafGrafana.Module/BusinessObjects/XafGrafanaDbContext.cs:17-25`
+- Modify: `XafGrafana/XafGrafana.Module/Module.cs:23-38`
 
 **Step 1: Create the OrderStatus enum and Order entity**
 
-Create `XafGraphana/XafGraphana.Module/BusinessObjects/Order.cs`:
+Create `XafGrafana/XafGrafana.Module/BusinessObjects/Order.cs`:
 
 ```csharp
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.EF;
 
-namespace XafGraphana.Module.BusinessObjects;
+namespace XafGrafana.Module.BusinessObjects;
 
 public enum OrderStatus
 {
@@ -127,7 +127,7 @@ public class Order : BaseObject
 
 **Step 2: Create the Customer entity**
 
-Create `XafGraphana/XafGraphana.Module/BusinessObjects/Customer.cs`:
+Create `XafGrafana/XafGrafana.Module/BusinessObjects/Customer.cs`:
 
 ```csharp
 using System.ComponentModel;
@@ -135,7 +135,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.EF;
 
-namespace XafGraphana.Module.BusinessObjects;
+namespace XafGrafana.Module.BusinessObjects;
 
 [DefaultClassOptions]
 [DefaultProperty(nameof(Name))]
@@ -152,9 +152,9 @@ public class Customer : BaseObject
 }
 ```
 
-**Step 3: Register DbSets in XafGraphanaEFCoreDbContext**
+**Step 3: Register DbSets in XafGrafanaEFCoreDbContext**
 
-Modify: `XafGraphana/XafGraphana.Module/BusinessObjects/XafGraphanaDbContext.cs`
+Modify: `XafGrafana/XafGrafana.Module/BusinessObjects/XafGrafanaDbContext.cs`
 
 Add after the `HCategories` DbSet (line 25):
 
@@ -165,24 +165,24 @@ public DbSet<Order> Orders { get; set; }
 
 **Step 4: Export new types in Module.cs**
 
-Modify: `XafGraphana/XafGraphana.Module/Module.cs`
+Modify: `XafGrafana/XafGrafana.Module/Module.cs`
 
 Add inside the constructor, after the existing `AdditionalExportedTypes` lines (after line 38):
 
 ```csharp
-AdditionalExportedTypes.Add(typeof(XafGraphana.Module.BusinessObjects.Customer));
-AdditionalExportedTypes.Add(typeof(XafGraphana.Module.BusinessObjects.Order));
+AdditionalExportedTypes.Add(typeof(XafGrafana.Module.BusinessObjects.Customer));
+AdditionalExportedTypes.Add(typeof(XafGrafana.Module.BusinessObjects.Order));
 ```
 
 **Step 5: Verify the app starts and shows new entities**
 
-Run: `cd XafGraphana/XafGraphana.Blazor.Server && dotnet run`
+Run: `cd XafGrafana/XafGrafana.Blazor.Server && dotnet run`
 Expected: App starts. Log in as Admin (empty password). Customer and Order nav items visible under "Business" group. Stop the app.
 
 **Step 6: Commit**
 
 ```bash
-git add XafGraphana/XafGraphana.Module/BusinessObjects/Customer.cs XafGraphana/XafGraphana.Module/BusinessObjects/Order.cs XafGraphana/XafGraphana.Module/BusinessObjects/XafGraphanaDbContext.cs XafGraphana/XafGraphana.Module/Module.cs
+git add XafGrafana/XafGrafana.Module/BusinessObjects/Customer.cs XafGrafana/XafGrafana.Module/BusinessObjects/Order.cs XafGrafana/XafGrafana.Module/BusinessObjects/XafGrafanaDbContext.cs XafGrafana/XafGrafana.Module/Module.cs
 git commit -m "feat: add Customer and Order business objects"
 ```
 
@@ -191,16 +191,16 @@ git commit -m "feat: add Customer and Order business objects"
 ### Task 3: Prometheus Metrics — NuGet, Static Metrics, Middleware
 
 **Files:**
-- Modify: `XafGraphana/XafGraphana.Blazor.Server/XafGraphana.Blazor.Server.csproj:19-33`
-- Create: `XafGraphana/XafGraphana.Blazor.Server/Services/XafMetrics.cs`
-- Modify: `XafGraphana/XafGraphana.Blazor.Server/Startup.cs:35-207` (ConfigureServices)
-- Modify: `XafGraphana/XafGraphana.Blazor.Server/Startup.cs:210-242` (Configure)
+- Modify: `XafGrafana/XafGrafana.Blazor.Server/XafGrafana.Blazor.Server.csproj:19-33`
+- Create: `XafGrafana/XafGrafana.Blazor.Server/Services/XafMetrics.cs`
+- Modify: `XafGrafana/XafGrafana.Blazor.Server/Startup.cs:35-207` (ConfigureServices)
+- Modify: `XafGrafana/XafGrafana.Blazor.Server/Startup.cs:210-242` (Configure)
 
 **Step 1: Add prometheus-net NuGet packages**
 
 Run:
 ```bash
-cd XafGraphana/XafGraphana.Blazor.Server
+cd XafGrafana/XafGrafana.Blazor.Server
 dotnet add package prometheus-net.AspNetCore
 ```
 
@@ -208,12 +208,12 @@ dotnet add package prometheus-net.AspNetCore
 
 **Step 2: Create XafMetrics.cs — custom metric definitions**
 
-Create `XafGraphana/XafGraphana.Blazor.Server/Services/XafMetrics.cs`:
+Create `XafGrafana/XafGrafana.Blazor.Server/Services/XafMetrics.cs`:
 
 ```csharp
 using Prometheus;
 
-namespace XafGraphana.Blazor.Server.Services;
+namespace XafGrafana.Blazor.Server.Services;
 
 public static class XafMetrics
 {
@@ -280,7 +280,7 @@ using Prometheus;
 
 **Step 4: Verify /metrics endpoint works**
 
-Run: `cd XafGraphana/XafGraphana.Blazor.Server && dotnet run`
+Run: `cd XafGrafana/XafGrafana.Blazor.Server && dotnet run`
 Open: `http://localhost:5000/metrics`
 Expected: Prometheus text format output with `http_request_duration_seconds`, `dotnet_*`, `process_*` metrics.
 Stop the app.
@@ -288,7 +288,7 @@ Stop the app.
 **Step 5: Commit**
 
 ```bash
-git add XafGraphana/XafGraphana.Blazor.Server/XafGraphana.Blazor.Server.csproj XafGraphana/XafGraphana.Blazor.Server/Services/XafMetrics.cs XafGraphana/XafGraphana.Blazor.Server/Startup.cs
+git add XafGrafana/XafGrafana.Blazor.Server/XafGrafana.Blazor.Server.csproj XafGrafana/XafGrafana.Blazor.Server/Services/XafMetrics.cs XafGrafana/XafGrafana.Blazor.Server/Startup.cs
 git commit -m "feat: add prometheus-net metrics endpoint and custom metric definitions"
 ```
 
@@ -297,19 +297,19 @@ git commit -m "feat: add prometheus-net metrics endpoint and custom metric defin
 ### Task 4: EF Core Metrics Interceptor
 
 **Files:**
-- Create: `XafGraphana/XafGraphana.Blazor.Server/Services/EfCoreMetricsInterceptor.cs`
-- Modify: `XafGraphana/XafGraphana.Blazor.Server/Startup.cs:78-96` (DbContext options)
+- Create: `XafGrafana/XafGrafana.Blazor.Server/Services/EfCoreMetricsInterceptor.cs`
+- Modify: `XafGrafana/XafGrafana.Blazor.Server/Startup.cs:78-96` (DbContext options)
 
 **Step 1: Create EfCoreMetricsInterceptor**
 
-Create `XafGraphana/XafGraphana.Blazor.Server/Services/EfCoreMetricsInterceptor.cs`:
+Create `XafGrafana/XafGrafana.Blazor.Server/Services/EfCoreMetricsInterceptor.cs`:
 
 ```csharp
 using System.Data.Common;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace XafGraphana.Blazor.Server.Services;
+namespace XafGrafana.Blazor.Server.Services;
 
 public class EfCoreMetricsInterceptor : DbCommandInterceptor
 {
@@ -367,7 +367,7 @@ public class EfCoreMetricsInterceptor : DbCommandInterceptor
 
 **Step 2: Register the interceptor in the DbContext options**
 
-Modify `Startup.cs` — inside the `.WithDbContext<XafGraphanaEFCoreDbContext>` lambda (around line 78-96), add the interceptor registration. After `options.UseConnectionString(connectionString);` (line 95) and before the closing `})` (line 96):
+Modify `Startup.cs` — inside the `.WithDbContext<XafGrafanaEFCoreDbContext>` lambda (around line 78-96), add the interceptor registration. After `options.UseConnectionString(connectionString);` (line 95) and before the closing `})` (line 96):
 
 ```csharp
 options.UseInterceptor(new EfCoreMetricsInterceptor());
@@ -395,7 +395,7 @@ Expected: `ef_query_duration_seconds_bucket`, `ef_query_duration_seconds_sum`, `
 **Step 4: Commit**
 
 ```bash
-git add XafGraphana/XafGraphana.Blazor.Server/Services/EfCoreMetricsInterceptor.cs XafGraphana/XafGraphana.Blazor.Server/Startup.cs
+git add XafGrafana/XafGrafana.Blazor.Server/Services/EfCoreMetricsInterceptor.cs XafGrafana/XafGrafana.Blazor.Server/Startup.cs
 git commit -m "feat: add EF Core query duration metrics interceptor"
 ```
 
@@ -404,7 +404,7 @@ git commit -m "feat: add EF Core query duration metrics interceptor"
 ### Task 5: Circuit Handler — Active Sessions Metric
 
 **Files:**
-- Modify: `XafGraphana/XafGraphana.Blazor.Server/Services/CircuitHandlerProxy.cs:13-24`
+- Modify: `XafGrafana/XafGrafana.Blazor.Server/Services/CircuitHandlerProxy.cs:13-24`
 
 **Step 1: Add session tracking to CircuitHandlerProxy**
 
@@ -422,7 +422,7 @@ XafMetrics.ActiveSessions.Dec();
 
 Add using at top:
 ```csharp
-using XafGraphana.Blazor.Server.Services;
+using XafGrafana.Blazor.Server.Services;
 ```
 
 Wait — `CircuitHandlerProxy` is already in the `Services` namespace, so just ensure `XafMetrics` is accessible (it's in the same namespace). No extra using needed.
@@ -435,7 +435,7 @@ Expected: `xaf_active_sessions 1` (or more if multiple tabs).
 **Step 3: Commit**
 
 ```bash
-git add XafGraphana/XafGraphana.Blazor.Server/Services/CircuitHandlerProxy.cs
+git add XafGrafana/XafGrafana.Blazor.Server/Services/CircuitHandlerProxy.cs
 git commit -m "feat: track active Blazor circuits in Prometheus gauge"
 ```
 
@@ -444,19 +444,19 @@ git commit -m "feat: track active Blazor circuits in Prometheus gauge"
 ### Task 6: CRUD Metrics Controller
 
 **Files:**
-- Create: `XafGraphana/XafGraphana.Blazor.Server/Controllers/MetricsViewController.cs`
+- Create: `XafGrafana/XafGrafana.Blazor.Server/Controllers/MetricsViewController.cs`
 
 Note: This controller lives in the Blazor.Server project (not Module) because it references `XafMetrics` which depends on prometheus-net. The Module project should stay free of prometheus-net dependencies.
 
 **Step 1: Create MetricsViewController**
 
-Create `XafGraphana/XafGraphana.Blazor.Server/Controllers/MetricsViewController.cs`:
+Create `XafGrafana/XafGrafana.Blazor.Server/Controllers/MetricsViewController.cs`:
 
 ```csharp
 using DevExpress.ExpressApp;
-using XafGraphana.Blazor.Server.Services;
+using XafGrafana.Blazor.Server.Services;
 
-namespace XafGraphana.Blazor.Server.Controllers;
+namespace XafGrafana.Blazor.Server.Controllers;
 
 public class MetricsViewController : ViewController
 {
@@ -487,9 +487,9 @@ Actually, a better approach for XAF CRUD tracking is to hook into `IObjectSpace.
 
 ```csharp
 using DevExpress.ExpressApp;
-using XafGraphana.Blazor.Server.Services;
+using XafGrafana.Blazor.Server.Services;
 
-namespace XafGraphana.Blazor.Server.Controllers;
+namespace XafGrafana.Blazor.Server.Controllers;
 
 public class MetricsViewController : ViewController
 {
@@ -540,7 +540,7 @@ Expected: `xaf_object_crud_total{entity="Customer",operation="Create"} 1`
 **Step 3: Commit**
 
 ```bash
-git add XafGraphana/XafGraphana.Blazor.Server/Controllers/MetricsViewController.cs
+git add XafGrafana/XafGrafana.Blazor.Server/Controllers/MetricsViewController.cs
 git commit -m "feat: add XAF CRUD metrics via ViewController"
 ```
 
@@ -549,19 +549,19 @@ git commit -m "feat: add XAF CRUD metrics via ViewController"
 ### Task 7: Activity Simulator BackgroundService
 
 **Files:**
-- Create: `XafGraphana/XafGraphana.Blazor.Server/Services/ActivitySimulatorService.cs`
-- Modify: `XafGraphana/XafGraphana.Blazor.Server/Startup.cs:35-36` (register hosted service)
+- Create: `XafGrafana/XafGrafana.Blazor.Server/Services/ActivitySimulatorService.cs`
+- Modify: `XafGrafana/XafGrafana.Blazor.Server/Startup.cs:35-36` (register hosted service)
 
 **Step 1: Create ActivitySimulatorService**
 
-Create `XafGraphana/XafGraphana.Blazor.Server/Services/ActivitySimulatorService.cs`:
+Create `XafGrafana/XafGrafana.Blazor.Server/Services/ActivitySimulatorService.cs`:
 
 ```csharp
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using XafGraphana.Module.BusinessObjects;
+using XafGrafana.Module.BusinessObjects;
 
-namespace XafGraphana.Blazor.Server.Services;
+namespace XafGrafana.Blazor.Server.Services;
 
 public class ActivitySimulatorService : BackgroundService
 {
@@ -732,7 +732,7 @@ Check `/metrics` — `xaf_object_crud_total` counters should be incrementing.
 **Step 4: Commit**
 
 ```bash
-git add XafGraphana/XafGraphana.Blazor.Server/Services/ActivitySimulatorService.cs XafGraphana/XafGraphana.Blazor.Server/Startup.cs
+git add XafGrafana/XafGrafana.Blazor.Server/Services/ActivitySimulatorService.cs XafGrafana/XafGrafana.Blazor.Server/Startup.cs
 git commit -m "feat: add activity simulator background service"
 ```
 
@@ -975,7 +975,7 @@ Create `monitoring/grafana/provisioning/dashboards/dashboards.yml`:
 apiVersion: 1
 
 providers:
-  - name: "XafGraphana"
+  - name: "XafGrafana"
     orgId: 1
     folder: "XAF Monitoring"
     type: file
@@ -1159,7 +1159,7 @@ Expected: sqlserver, sql-exporter, prometheus, grafana all running.
 **Step 2: Start the XAF app**
 
 ```bash
-cd XafGraphana/XafGraphana.Blazor.Server
+cd XafGrafana/XafGrafana.Blazor.Server
 dotnet run
 ```
 
@@ -1202,12 +1202,12 @@ git commit -m "fix: adjustments from end-to-end verification"
 | # | File | Task |
 |---|------|------|
 | 1 | `docker-compose.yml` | 1 |
-| 2 | `XafGraphana/XafGraphana.Module/BusinessObjects/Customer.cs` | 2 |
-| 3 | `XafGraphana/XafGraphana.Module/BusinessObjects/Order.cs` | 2 |
-| 4 | `XafGraphana/XafGraphana.Blazor.Server/Services/XafMetrics.cs` | 3 |
-| 5 | `XafGraphana/XafGraphana.Blazor.Server/Services/EfCoreMetricsInterceptor.cs` | 4 |
-| 6 | `XafGraphana/XafGraphana.Blazor.Server/Controllers/MetricsViewController.cs` | 6 |
-| 7 | `XafGraphana/XafGraphana.Blazor.Server/Services/ActivitySimulatorService.cs` | 7 |
+| 2 | `XafGrafana/XafGrafana.Module/BusinessObjects/Customer.cs` | 2 |
+| 3 | `XafGrafana/XafGrafana.Module/BusinessObjects/Order.cs` | 2 |
+| 4 | `XafGrafana/XafGrafana.Blazor.Server/Services/XafMetrics.cs` | 3 |
+| 5 | `XafGrafana/XafGrafana.Blazor.Server/Services/EfCoreMetricsInterceptor.cs` | 4 |
+| 6 | `XafGrafana/XafGrafana.Blazor.Server/Controllers/MetricsViewController.cs` | 6 |
+| 7 | `XafGrafana/XafGrafana.Blazor.Server/Services/ActivitySimulatorService.cs` | 7 |
 | 8 | `monitoring/prometheus/prometheus.yml` | 8 |
 | 9 | `monitoring/sql-exporter/sql_exporter.yml` | 9 |
 | 10 | `monitoring/grafana/provisioning/datasources/prometheus.yml` | 10 |
@@ -1218,8 +1218,8 @@ git commit -m "fix: adjustments from end-to-end verification"
 | File | Tasks |
 |------|-------|
 | `appsettings.Development.json` | 1 |
-| `XafGraphanaDbContext.cs` | 2 |
+| `XafGrafanaDbContext.cs` | 2 |
 | `Module.cs` | 2 |
 | `Startup.cs` | 3, 4, 7 |
 | `CircuitHandlerProxy.cs` | 5 |
-| `XafGraphana.Blazor.Server.csproj` | 3 |
+| `XafGrafana.Blazor.Server.csproj` | 3 |

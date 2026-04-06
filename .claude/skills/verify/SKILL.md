@@ -8,12 +8,12 @@ Run all verification steps below. Report results as a checklist. Stop and invest
 ## 1. Build
 
 ```bash
-dotnet build XafGraphana/XafGraphana.Blazor.Server/XafGraphana.Blazor.Server.csproj --no-restore 2>&1 | tail -5
+dotnet build XafGrafana/XafGrafana.Blazor.Server/XafGrafana.Blazor.Server.csproj --no-restore 2>&1 | tail -5
 ```
 
 If restore is needed (new packages), run with restore:
 ```bash
-dotnet build XafGraphana/XafGraphana.Blazor.Server/XafGraphana.Blazor.Server.csproj 2>&1 | tail -10
+dotnet build XafGrafana/XafGrafana.Blazor.Server/XafGrafana.Blazor.Server.csproj 2>&1 | tail -10
 ```
 
 Report: build succeeded or failed (with error summary).

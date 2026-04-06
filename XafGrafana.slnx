@@ -1,0 +1,14 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="EasyTest" />
+    <BuildType Name="Release" />
+  </Configurations>
+  <Folder Name="/XafGrafana/">
+    <Project Path="XafGrafana/XafGrafana.Tests/XafGrafana.Tests.csproj">
+      <BuildType Solution="EasyTest|*" Project="Debug" />
+    </Project>
+  </Folder>
+  <Project Path="XafGrafana/XafGrafana.Blazor.Server/XafGrafana.Blazor.Server.csproj" />
+  <Project Path="XafGrafana/XafGrafana.Module/XafGrafana.Module.csproj" />
+</Solution>

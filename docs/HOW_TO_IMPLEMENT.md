@@ -218,7 +218,7 @@ public class EfCoreMetricsInterceptor : DbCommandInterceptor
 
 XAF manages DbContext creation, so standard EF Core DI-based interceptor registration doesn't work. Instead, add a static interceptor list to your DbContext:
 
-In your `XafGraphanaEFCoreDbContext.cs` (Module project):
+In your `XafGrafanaEFCoreDbContext.cs` (Module project):
 
 ```csharp
 using Microsoft.EntityFrameworkCore.Diagnostics;
