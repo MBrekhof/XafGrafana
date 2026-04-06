@@ -90,6 +90,8 @@ dotnet run -- --updateDatabase --forceUpdate --silent
 dotnet run --urls="http://localhost:5000"
 ```
 
+> **Visual Studio users:** Use the **"XafGrafana.Blazor.Server"** launch profile (Kestrel, port 5000), not IIS Express. Prometheus scrapes `host.docker.internal:5000` over HTTP — IIS Express binds to `localhost` only and is unreachable from Docker.
+
 ### Access Points
 
 | Service | URL | Credentials |

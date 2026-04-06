@@ -233,7 +233,11 @@ namespace XafGrafana.Blazor.Server
                 // The default HSTS value is 30 days. To change this for production scenarios, see: https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
+            // Skip HTTPS redirect for /metrics and /health so Prometheus can scrape over HTTP
+            app.UseWhen(
+                context => !context.Request.Path.StartsWithSegments("/metrics")
+                        && !context.Request.Path.StartsWithSegments("/health"),
+                appBuilder => appBuilder.UseHttpsRedirection());
             app.UseRequestLocalization();
             app.UseStaticFiles();
             app.UseRouting();
