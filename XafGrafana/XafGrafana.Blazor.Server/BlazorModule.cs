@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.BaseImpl.EF;
 using System.ComponentModel;
+using XafGrafana.Blazor.Server.BusinessObjects;
 
 namespace XafGrafana.Blazor.Server
 {
@@ -27,6 +28,8 @@ namespace XafGrafana.Blazor.Server
         }
         public XafGrafanaBlazorModule()
         {
+            AdditionalExportedTypes.Add(typeof(LoadTestParameters));
+            AdditionalExportedTypes.Add(typeof(ChaosTestParameters));
         }
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB)
         {

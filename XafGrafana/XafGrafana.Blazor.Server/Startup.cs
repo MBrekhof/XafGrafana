@@ -39,6 +39,8 @@ namespace XafGrafana.Blazor.Server
 
             services.AddHealthChecks();
             services.AddHostedService<ActivitySimulatorService>();
+            services.AddHostedService<LoadTestService>();
+            services.AddHostedService<ChaosTestService>();
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
